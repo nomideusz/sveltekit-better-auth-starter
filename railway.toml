@@ -1,0 +1,12 @@
+# Railway (standalone starter repo). Railpack detects pnpm; migrations +
+# first-run admin run before the new deploy takes traffic.
+[build]
+builder = "RAILPACK"
+buildCommand = "pnpm install --frozen-lockfile && pnpm build"
+
+[deploy]
+preDeployCommand = "node scripts/migrate.mjs && node scripts/bootstrap-admin.mjs"
+startCommand = "node build"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"

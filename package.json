@@ -1,0 +1,46 @@
+{
+  "name": "app-template",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "start": "node build",
+    "preview": "vite preview",
+    "test": "vitest run --passWithNoTests",
+    "prepare": "svelte-kit sync || echo ''",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "admin:create": "node scripts/bootstrap-admin.mjs",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:prod": "node scripts/migrate.mjs && node scripts/bootstrap-admin.mjs"
+  },
+  "imports": {
+    "#lib": "./src/lib",
+    "#lib/*": "./src/lib/*"
+  },
+  "dependencies": {
+    "@nomideusz/svelte-i18n": "^0.5.0",
+    "@nomideusz/svelte-notify": "^0.6.1",
+    "better-auth": "^1.6.26",
+    "drizzle-orm": "^0.45.2",
+    "nodemailer": "^9.0.3",
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-node": "6.0.0-next.10",
+    "@sveltejs/kit": "3.0.0-next.23",
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "@tailwindcss/vite": "^4.3.2",
+    "@types/node": "^25.9.4",
+    "@types/nodemailer": "^8.0.1",
+    "drizzle-kit": "^0.31.10",
+    "svelte": "^5.56.9",
+    "svelte-check": "^4.7.1",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

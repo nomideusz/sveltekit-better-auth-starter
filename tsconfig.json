@@ -1,0 +1,26 @@
+{
+	"extends": "$app/tsconfig",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"moduleResolution": "bundler",
+		// `#lib` resolves at runtime through package.json `imports`; TypeScript
+		// resolves the substituted path literally and skips extension inference,
+		// so extensionless imports (`#lib/server/env`) need this mirror of the
+		// same mapping. kit already intends to generate it from `imports`.
+		"paths": {
+			"#lib": ["./src/lib"],
+			"#lib/*": ["./src/lib/*"]
+		}
+	},
+	// kit 3's generated config no longer carries include/exclude, so the app has
+	// to state its own. `scripts/` are one-off node scripts, never type-checked.
+	"include": ["src/**/*", "vite.config.ts", ".svelte-kit/types/**/*"],
+	"exclude": ["scripts/**"]
+}

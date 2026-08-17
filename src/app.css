@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+
+/* App tokens. Name them after the app (--<app>-*), never --asini-* (those are
+   package internals). Packages theme through their own --asini-* variables,
+   which you map here. */
+:root {
+	--app-bg: #ffffff;
+	--app-fg: #111111;
+	--app-accent: #1a7f4b;
+}
+body {
+	background: var(--app-bg);
+	color: var(--app-fg);
+}

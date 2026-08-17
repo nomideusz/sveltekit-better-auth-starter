@@ -1,0 +1,4 @@
+# Copied to pnpm-workspace.yaml in the standalone starter repo (sync-starter.sh).
+# Inside the monorepo the root workspace file applies.
+ignoredBuiltDependencies:
+  - protobufjs
