@@ -35,9 +35,9 @@
 		</nav>
 		<div class="ml-auto flex items-center gap-3">
 			{#if data.user}
-				<form method="POST" action="/auth/logout"><button type="submit" class="btn text-sm">{t('nav_logout')}</button></form>
+				<form method="POST" action="/auth/logout"><button type="submit" class="btn btn-sm">{t('nav_logout')}</button></form>
 			{/if}
-			<LocaleSwitcher {i18n} labels={LABELS} routing={i18nRouting} unprefixed={['/app', '/auth']} />
+			<LocaleSwitcher {i18n} labels={LABELS} routing={i18nRouting} unprefixed={['/app', '/auth']} class="h-8 text-sm" />
 		</div>
 	</div>
 </header>
