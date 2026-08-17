@@ -7,7 +7,12 @@ const BRAND = env.SMTP_FROM_NAME ?? 'App';
 /** The app's identity, bound once; every email renders through it. */
 export const notify = createNotifier({ brand: BRAND, language: 'en', theme: { accent: '#1a7f4b' } });
 
-// SMTP unset (local dev) → messages are logged, not sent.
+// Two transports, one `send`:
+// - RESEND_API_KEY set → Resend's HTTP API. Railway's Hobby plan blocks
+//   outbound SMTP ports (25/465/587), so an HTTP mail API is the path that
+//   works there without a paid plan.
+// - else SMTP via nodemailer; with SMTP unset (local dev) messages are
+//   logged, not sent.
 const mailer = createMailer({
 	host: env.SMTP_HOST,
 	user: env.SMTP_USER,
@@ -17,7 +22,20 @@ const mailer = createMailer({
 	fromName: BRAND,
 	onUnconfigured: (msg) => console.info('[email] not sent (SMTP unconfigured):', msg.to, msg.subject),
 });
-export const send = mailer.send;
+type Message = { to: string; subject: string; html: string; text?: string };
+
+async function sendResend(msg: Message): Promise<boolean> {
+	const from = `${BRAND} <${env.SMTP_FROM ?? 'onboarding@resend.dev'}>`;
+	const res = await fetch('https://api.resend.com/emails', {
+		method: 'POST',
+		headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+		body: JSON.stringify({ from, to: [msg.to], subject: msg.subject, html: msg.html, text: msg.text }),
+	});
+	if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);
+	return true;
+}
+
+export const send: (msg: Message) => Promise<boolean> = env.RESEND_API_KEY ? sendResend : mailer.send;
 
 export async function sendPasswordReset(to: string, url: string) {
 	const m = notify.actionLink({

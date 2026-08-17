@@ -12,3 +12,7 @@ body {
 	background: var(--app-bg);
 	color: var(--app-fg);
 }
+button,
+select {
+	cursor: pointer;
+}

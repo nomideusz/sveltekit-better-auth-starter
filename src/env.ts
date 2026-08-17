@@ -11,6 +11,7 @@ export const variables = defineEnvVars({
 	BETTER_AUTH_SECRET: { schema: optional },
 	DATABASE_URL: { schema: optional },
 	ORIGIN: { schema: optional },
+	RESEND_API_KEY: { schema: optional },
 	SMTP_FROM: { schema: optional },
 	SMTP_FROM_NAME: { schema: optional },
 	SMTP_HOST: { schema: optional },
