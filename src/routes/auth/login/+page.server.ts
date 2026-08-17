@@ -1,11 +1,11 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { APIError } from 'better-auth/api';
 import type { Actions, PageServerLoad } from './$types.js';
-import { getAuth } from '#lib/server/auth';
+import { getAuth, ALLOW_SIGNUP } from '#lib/server/auth';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	if (locals.user) redirect(302, '/app');
-	return { reset: url.searchParams.get('reset') === '1' };
+	return { reset: url.searchParams.get('reset') === '1', allowSignup: ALLOW_SIGNUP };
 };
 
 export const actions: Actions = {

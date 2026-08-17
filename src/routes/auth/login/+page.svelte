@@ -13,4 +13,5 @@
 	<input name="password" type="password" required placeholder={t('login_password')} class="border p-2" />
 	<button type="submit" class="border p-2">{t('login_submit')}</button>
 	<a href="/auth/forgot-password" class="text-sm underline">{t('login_forgot')}</a>
+	{#if data.allowSignup}<a href="/auth/signup" class="text-sm underline">{t('login_no_account')} {t('nav_signup')}</a>{/if}
 </form>

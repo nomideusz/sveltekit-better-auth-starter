@@ -2,7 +2,7 @@
 
 A minimal, production-shaped SvelteKit app: sign-in / password reset / email
 verification (Better Auth), Postgres via Drizzle with migrations, URL-locale
-i18n (`/` and `/pl`), transactional email, security headers, a health endpoint
+i18n (`/`, `/pl`, `/de`, `/uk`, `/es`), transactional email, security headers, a health endpoint
 and one protected area. Everything else is yours to add.
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/sveltekit-better-auth-starter?utm_medium=integration&utm_source=button&utm_campaign=sveltekit-better-auth-starter)
@@ -30,6 +30,7 @@ The template provisions Postgres and this app. Variables:
 | `BETTER_AUTH_SECRET` | generated |
 | `ADMIN_EMAIL` | **you fill this in** |
 | `ADMIN_PASSWORD` | generated — read it in the service's Variables tab, sign in at `/auth/login`, then change it |
+| `ALLOW_SIGNUP` | `false` by default (admin creates accounts); `true` opens `/auth/signup` with email verification |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM`, `SMTP_FROM_NAME` | optional; without them password-reset / verification emails are logged, not sent |
 
 On every deploy: `node scripts/migrate.mjs` applies migrations, then
@@ -56,7 +57,7 @@ src/lib/i18n*.ts, messages/   i18n setup (routing config is the single source of
 src/lib/server/db/            drizzle + postgres, Better Auth tables
 src/lib/server/auth.ts        Better Auth config
 src/lib/server/email.ts       notifier + mailer, bound once
-src/routes/auth/*             login · logout · forgot-password · reset-password · verify
+src/routes/auth/*             login · signup (ALLOW_SIGNUP) · logout · forgot-password · reset-password · verify
 src/routes/api/auth/[...all]  Better Auth HTTP surface (emailed links land here)
 src/routes/app/*              protected area
 ```

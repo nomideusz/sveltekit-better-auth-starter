@@ -6,8 +6,11 @@ import { createI18n, localizeHref } from '@nomideusz/svelte-i18n';
 import { i18nRouting } from './i18n-routing.js';
 import en from './messages/en.json';
 import pl from './messages/pl.json';
+import de from './messages/de.json';
+import uk from './messages/uk.json';
+import es from './messages/es.json';
 
-const messages: Record<string, Record<string, string>> = { en, pl };
+const messages: Record<string, Record<string, string>> = { en, pl, de, uk, es };
 
 export const i18n = createI18n({
 	...i18nRouting,

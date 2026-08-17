@@ -4,5 +4,5 @@ import type { LocaleRoutingConfig } from '@nomideusz/svelte-i18n';
 
 export const i18nRouting: LocaleRoutingConfig = {
 	defaultLocale: 'en',
-	supportedLocales: ['en', 'pl'],
+	supportedLocales: ['en', 'pl', 'de', 'uk', 'es'],
 };

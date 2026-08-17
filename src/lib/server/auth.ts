@@ -12,6 +12,8 @@ import { sendPasswordReset, sendEmailVerification } from './email.js';
 
 export const MIN_PASSWORD_LENGTH = 8;
 const ORIGIN = env.ORIGIN ?? 'http://localhost:5173';
+/** Public self-service sign-up. Off by default: accounts are created by an admin. */
+export const ALLOW_SIGNUP = env.ALLOW_SIGNUP === 'true';
 
 function buildAuth() {
 	return betterAuth({
@@ -23,7 +25,9 @@ function buildAuth() {
 		advanced: { database: { generateId: () => crypto.randomUUID() } },
 		emailAndPassword: {
 			enabled: true,
-			disableSignUp: true, // accounts are created by admins (createUser) — flip if you want self-signup
+			disableSignUp: !ALLOW_SIGNUP,
+			// New sign-ups get a verification email; the app works unverified but
+			// shows a banner (see /app) until the link is used.
 			minPasswordLength: MIN_PASSWORD_LENGTH,
 			sendResetPassword: async ({ user, token }) => {
 				await sendPasswordReset(user.email, `${ORIGIN}/auth/reset-password?token=${token}`);
@@ -31,6 +35,7 @@ function buildAuth() {
 			revokeSessionsOnPasswordReset: true,
 		},
 		emailVerification: {
+			sendOnSignUp: true,
 			sendVerificationEmail: async ({ user, url }) => {
 				await sendEmailVerification(user.email, url);
 			},

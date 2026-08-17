@@ -29,8 +29,9 @@
 			<form method="POST" action="/auth/logout"><button type="submit">{t('nav_logout')}</button></form>
 		{:else}
 			<a href="/auth/login">{t('nav_login')}</a>
+			{#if data.allowSignup}<a href="/auth/signup">{t('nav_signup')}</a>{/if}
 		{/if}
-		<LocaleSwitcher {i18n} />
+		<LocaleSwitcher {i18n} routing={i18nRouting} unprefixed={['/app', '/auth']} />
 	</nav>
 </header>
 <main class="p-4">
