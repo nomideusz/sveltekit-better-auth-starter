@@ -11,7 +11,7 @@ import { user, session, account, verification } from './db/schema.js';
 import { sendPasswordReset, sendEmailVerification } from './email.js';
 
 export const MIN_PASSWORD_LENGTH = 8;
-const ORIGIN = env.ORIGIN ?? 'http://localhost:5173';
+const ORIGIN = env.ORIGIN || 'http://localhost:5173';
 /** Public self-service sign-up. Off by default: accounts are created by an admin. */
 export const ALLOW_SIGNUP = env.ALLOW_SIGNUP === 'true';
 
@@ -19,7 +19,7 @@ function buildAuth() {
 	return betterAuth({
 		// Build-time route analysis has no env; the placeholder never serves a
 		// request — at runtime a missing BETTER_AUTH_SECRET still throws.
-		secret: env.BETTER_AUTH_SECRET ?? (building ? 'build-time-placeholder' : undefined),
+		secret: env.BETTER_AUTH_SECRET || (building ? 'build-time-placeholder' : undefined),
 		baseURL: ORIGIN,
 		database: drizzleAdapter(getDb(), { provider: 'pg', schema: { user, session, account, verification } }),
 		advanced: { database: { generateId: () => crypto.randomUUID() } },

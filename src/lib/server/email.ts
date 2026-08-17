@@ -2,7 +2,9 @@ import { createNotifier } from '@nomideusz/svelte-notify';
 import { createMailer } from '@nomideusz/svelte-notify/transport';
 import { env } from '#lib/server/env';
 
-const BRAND = env.SMTP_FROM_NAME ?? 'App';
+// Railway (and most PaaS) set optional variables to '' rather than leaving them
+// unset, so every optional read here treats '' as absent.
+const BRAND = env.SMTP_FROM_NAME || 'App';
 
 /** The app's identity, bound once; every email renders through it. */
 export const notify = createNotifier({ brand: BRAND, language: 'en', theme: { accent: '#1a7f4b' } });
@@ -14,18 +16,20 @@ export const notify = createNotifier({ brand: BRAND, language: 'en', theme: { ac
 // - else SMTP via nodemailer; with SMTP unset (local dev) messages are
 //   logged, not sent.
 const mailer = createMailer({
-	host: env.SMTP_HOST,
-	user: env.SMTP_USER,
-	pass: env.SMTP_PASSWORD,
+	host: env.SMTP_HOST || undefined,
+	user: env.SMTP_USER || undefined,
+	pass: env.SMTP_PASSWORD || undefined,
 	port: Number(env.SMTP_PORT) || 465,
-	from: env.SMTP_FROM ?? 'noreply@example.com',
+	from: env.SMTP_FROM || 'noreply@example.com',
 	fromName: BRAND,
 	onUnconfigured: (msg) => console.info('[email] not sent (SMTP unconfigured):', msg.to, msg.subject),
 });
 type Message = { to: string; subject: string; html: string; text?: string };
 
 async function sendResend(msg: Message): Promise<boolean> {
-	const from = `${BRAND} <${env.SMTP_FROM ?? 'onboarding@resend.dev'}>`;
+	// Resend accepts only a verified domain sender, or onboarding@resend.dev
+	// (which can mail the account owner only) — that is the fallback for tests.
+	const from = `${BRAND} <${env.SMTP_FROM || 'onboarding@resend.dev'}>`;
 	const res = await fetch('https://api.resend.com/emails', {
 		method: 'POST',
 		headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
