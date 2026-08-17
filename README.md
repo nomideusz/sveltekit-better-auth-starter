@@ -5,7 +5,7 @@ verification (Better Auth), Postgres via Drizzle with migrations, URL-locale
 i18n (`/` and `/pl`), transactional email, security headers, a health endpoint
 and one protected area. Everything else is yours to add.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/REPLACE_ME?utm_medium=integration&utm_source=button&utm_campaign=sveltekit-better-auth-starter)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/sveltekit-better-auth-starter?utm_medium=integration&utm_source=button&utm_campaign=sveltekit-better-auth-starter)
 
 > Built on `@sveltejs/kit` **3.0.0-next** (pre-release) and Svelte 5.
 
