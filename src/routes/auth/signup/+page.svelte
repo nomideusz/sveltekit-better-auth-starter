@@ -5,12 +5,14 @@
 	const t = $derived(i18n.t);
 </script>
 
-<h1 class="text-2xl font-bold mb-4">{t('signup_title')}</h1>
-{#if form?.error}<p class="mb-2 text-red-700">{t(form.error)}</p>{/if}
-<form method="POST" class="flex flex-col gap-2 max-w-sm">
-	<input name="name" required placeholder={t('signup_name')} class="border p-2" />
-	<input name="email" type="email" required placeholder={t('login_email')} class="border p-2" />
-	<input name="password" type="password" required minlength="8" placeholder={t('login_password')} class="border p-2" />
-	<button type="submit" class="border p-2">{t('signup_submit')}</button>
-	<a href="/auth/login" class="text-sm underline">{t('signup_have_account')}</a>
-</form>
+<div class="card mx-auto max-w-sm">
+	<h1 class="mb-4 text-2xl font-semibold">{t('signup_title')}</h1>
+	{#if form?.error}<p class="error mb-3 text-sm">{t(form.error)}</p>{/if}
+	<form method="POST" class="flex flex-col gap-3">
+		<input name="name" required autocomplete="name" placeholder={t('signup_name')} class="input" />
+		<input name="email" type="email" required autocomplete="email" placeholder={t('login_email')} class="input" />
+		<input name="password" type="password" required minlength="8" autocomplete="new-password" placeholder={t('login_password')} class="input" />
+		<button type="submit" class="btn btn-primary">{t('signup_submit')}</button>
+	</form>
+	<p class="muted mt-4 text-sm">{t('signup_have_account')} <a href="/auth/login" class="link">{t('login_submit')}</a></p>
+</div>

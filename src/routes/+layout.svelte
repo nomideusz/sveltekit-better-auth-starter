@@ -19,21 +19,28 @@
 		i18n.setLocale(activeLocale);
 	});
 	const t = $derived(i18n.t);
+	const LABELS = { en: 'English', pl: 'Polski', de: 'Deutsch', uk: 'Українська', es: 'Español' };
 </script>
 
-<header class="flex items-center gap-4 p-4 border-b">
-	<a href={lhref('/')} class="font-bold">{t('app_name')}</a>
-	<nav class="flex gap-4 ml-auto text-sm">
-		{#if data.user}
-			<a href="/app">{t('nav_app')}</a>
-			<form method="POST" action="/auth/logout"><button type="submit">{t('nav_logout')}</button></form>
-		{:else}
-			<a href="/auth/login">{t('nav_login')}</a>
-			{#if data.allowSignup}<a href="/auth/signup">{t('nav_signup')}</a>{/if}
-		{/if}
-		<LocaleSwitcher {i18n} routing={i18nRouting} unprefixed={['/app', '/auth']} />
-	</nav>
+<header class="border-b" style="border-color: var(--app-border); background: var(--app-surface)">
+	<div class="container-app flex h-14 items-center gap-6">
+		<a href={lhref('/')} class="font-semibold tracking-tight">{t('app_name')}</a>
+		<nav class="flex items-center gap-4 text-sm">
+			{#if data.user}
+				<a href="/app" class="hover:underline">{t('nav_app')}</a>
+			{:else}
+				<a href="/auth/login" class="hover:underline">{t('nav_login')}</a>
+				{#if data.allowSignup}<a href="/auth/signup" class="hover:underline">{t('nav_signup')}</a>{/if}
+			{/if}
+		</nav>
+		<div class="ml-auto flex items-center gap-3">
+			{#if data.user}
+				<form method="POST" action="/auth/logout"><button type="submit" class="btn text-sm">{t('nav_logout')}</button></form>
+			{/if}
+			<LocaleSwitcher {i18n} labels={LABELS} routing={i18nRouting} unprefixed={['/app', '/auth']} />
+		</div>
+	</div>
 </header>
-<main class="p-4">
+<main class="container-app py-10">
 	{@render children()}
 </main>

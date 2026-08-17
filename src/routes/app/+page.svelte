@@ -5,23 +5,23 @@
 	const t = $derived(i18n.t);
 </script>
 
-<h1 class="text-2xl font-bold mb-4">{t('account_title')}</h1>
+<h1 class="mb-6 text-3xl font-semibold tracking-tight">{t('account_title')}</h1>
 
 {#if !data.emailVerified}
-	<div class="border p-3 mb-4 max-w-md">
+	<div class="notice mb-6 max-w-md text-sm">
 		<p>{t('verify_pending')}</p>
 		{#if form?.sent}
-			<p class="text-sm mt-1">{t('verify_sent')}</p>
+			<p class="muted mt-1">{t('verify_sent')}</p>
 		{:else}
-			<form method="POST" action="?/resend"><button type="submit" class="underline text-sm mt-1">{t('verify_resend')}</button></form>
+			<form method="POST" action="?/resend" class="mt-1"><button type="submit" class="link">{t('verify_resend')}</button></form>
 		{/if}
 	</div>
 {/if}
 
-<dl class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 max-w-md">
-	<dt class="text-sm opacity-70">{t('account_name')}</dt><dd>{data.user?.name}</dd>
-	<dt class="text-sm opacity-70">{t('account_email')}</dt><dd>{data.user?.email}</dd>
-	<dt class="text-sm opacity-70">{t('account_role')}</dt><dd>{data.user?.role}</dd>
-</dl>
-
-<form method="POST" action="/auth/logout" class="mt-6"><button type="submit" class="border p-2">{t('nav_logout')}</button></form>
+<div class="card max-w-md">
+	<dl class="grid grid-cols-[auto_1fr] gap-x-8 gap-y-2">
+		<dt class="muted text-sm">{t('account_name')}</dt><dd>{data.user?.name}</dd>
+		<dt class="muted text-sm">{t('account_email')}</dt><dd>{data.user?.email}</dd>
+		<dt class="muted text-sm">{t('account_role')}</dt><dd>{data.user?.role}</dd>
+	</dl>
+</div>

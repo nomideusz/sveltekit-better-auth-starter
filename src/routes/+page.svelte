@@ -3,5 +3,5 @@
 	const t = $derived(i18n.t);
 </script>
 
-<h1 class="text-2xl font-bold">{t('home_title')}</h1>
-<p>{t('home_body')}</p>
+<h1 class="text-3xl font-semibold tracking-tight">{t('home_title')}</h1>
+<p class="muted mt-2">{t('home_body')}</p>

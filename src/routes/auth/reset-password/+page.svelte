@@ -5,14 +5,17 @@
 	const t = $derived(i18n.t);
 </script>
 
-<h1 class="text-2xl font-bold mb-4">{t('reset_title')}</h1>
-{#if !data.valid}
-	<p>{t('reset_invalid')}</p>
-{:else}
-	{#if form?.error}<p class="mb-2 text-red-700">{t(form.error)}</p>{/if}
-	<form method="POST" class="flex flex-col gap-2 max-w-sm">
-		<input name="password" type="password" required placeholder={t('reset_password')} class="border p-2" />
-		<input name="confirm" type="password" required placeholder={t('reset_confirm')} class="border p-2" />
-		<button type="submit" class="border p-2">{t('reset_submit')}</button>
-	</form>
-{/if}
+<div class="card mx-auto max-w-sm">
+	<h1 class="mb-4 text-2xl font-semibold">{t('reset_title')}</h1>
+	{#if !data.valid}
+		<p class="error text-sm">{t('reset_invalid')}</p>
+		<p class="mt-4 text-sm"><a href="/auth/forgot-password" class="link">{t('forgot_title')}</a></p>
+	{:else}
+		{#if form?.error}<p class="error mb-3 text-sm">{t(form.error)}</p>{/if}
+		<form method="POST" class="flex flex-col gap-3">
+			<input name="password" type="password" required minlength="8" autocomplete="new-password" placeholder={t('reset_password')} class="input" />
+			<input name="confirm" type="password" required autocomplete="new-password" placeholder={t('reset_confirm')} class="input" />
+			<button type="submit" class="btn btn-primary">{t('reset_submit')}</button>
+		</form>
+	{/if}
+</div>

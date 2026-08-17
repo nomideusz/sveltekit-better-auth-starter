@@ -1,13 +1,27 @@
 @import 'tailwindcss';
 
-/* App tokens. Name them after the app (--<app>-*), never --asini-* (those are
+/* App tokens — name them after the app (--<app>-*), never --asini-* (those are
    package internals). Packages theme through their own --asini-* variables,
-   which you map here. */
+   mapped from the app tokens below. */
 :root {
-	--app-bg: #ffffff;
-	--app-fg: #111111;
+	--app-bg: #fafaf9;
+	--app-surface: #ffffff;
+	--app-fg: #1c1917;
+	--app-muted: #78716c;
+	--app-border: #e7e5e4;
 	--app-accent: #1a7f4b;
+	--app-accent-fg: #ffffff;
+	--app-radius: 0.5rem;
+
+	/* @nomideusz/* components (LocaleSwitcher, …) read these */
+	--asini-surface: var(--app-surface);
+	--asini-text: var(--app-fg);
+	--asini-border: var(--app-border);
+	--asini-border-strong: var(--app-muted);
+	--asini-accent: var(--app-accent);
+	--asini-radius-sm: var(--app-radius);
 }
+
 body {
 	background: var(--app-bg);
 	color: var(--app-fg);
@@ -15,4 +29,60 @@ body {
 button,
 select {
 	cursor: pointer;
+}
+
+@layer components {
+	.container-app {
+		@apply mx-auto w-full max-w-3xl px-4;
+	}
+	.card {
+		background: var(--app-surface);
+		border: 1px solid var(--app-border);
+		border-radius: var(--app-radius);
+		@apply p-6;
+	}
+	.input {
+		background: var(--app-surface);
+		border: 1px solid var(--app-border);
+		border-radius: var(--app-radius);
+		@apply w-full px-3 py-2 outline-none;
+	}
+	.input:focus {
+		border-color: var(--app-accent);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-accent) 20%, transparent);
+	}
+	.btn {
+		border: 1px solid var(--app-border);
+		border-radius: var(--app-radius);
+		background: var(--app-surface);
+		@apply inline-flex items-center justify-center px-4 py-2 font-medium;
+	}
+	.btn:hover {
+		border-color: var(--app-muted);
+	}
+	.btn-primary {
+		background: var(--app-accent);
+		border-color: var(--app-accent);
+		color: var(--app-accent-fg);
+	}
+	.btn-primary:hover {
+		filter: brightness(1.08);
+	}
+	.link {
+		color: var(--app-accent);
+		@apply underline underline-offset-2;
+	}
+	.muted {
+		color: var(--app-muted);
+	}
+	.notice {
+		border: 1px solid var(--app-border);
+		border-left: 3px solid var(--app-accent);
+		border-radius: var(--app-radius);
+		background: var(--app-surface);
+		@apply px-4 py-3;
+	}
+	.error {
+		@apply text-red-700;
+	}
 }

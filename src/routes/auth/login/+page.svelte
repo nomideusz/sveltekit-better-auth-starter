@@ -5,13 +5,17 @@
 	const t = $derived(i18n.t);
 </script>
 
-<h1 class="text-2xl font-bold mb-4">{t('login_title')}</h1>
-{#if data.reset}<p class="mb-2">{t('login_reset_done')}</p>{/if}
-{#if form?.error}<p class="mb-2 text-red-700">{t(form.error)}</p>{/if}
-<form method="POST" class="flex flex-col gap-2 max-w-sm">
-	<input name="email" type="email" required placeholder={t('login_email')} class="border p-2" />
-	<input name="password" type="password" required placeholder={t('login_password')} class="border p-2" />
-	<button type="submit" class="border p-2">{t('login_submit')}</button>
-	<a href="/auth/forgot-password" class="text-sm underline">{t('login_forgot')}</a>
-	{#if data.allowSignup}<a href="/auth/signup" class="text-sm underline">{t('login_no_account')} {t('nav_signup')}</a>{/if}
-</form>
+<div class="card mx-auto max-w-sm">
+	<h1 class="mb-4 text-2xl font-semibold">{t('login_title')}</h1>
+	{#if data.reset}<p class="notice mb-4 text-sm">{t('login_reset_done')}</p>{/if}
+	{#if form?.error}<p class="error mb-3 text-sm">{t(form.error)}</p>{/if}
+	<form method="POST" class="flex flex-col gap-3">
+		<input name="email" type="email" required autocomplete="email" placeholder={t('login_email')} class="input" />
+		<input name="password" type="password" required autocomplete="current-password" placeholder={t('login_password')} class="input" />
+		<button type="submit" class="btn btn-primary">{t('login_submit')}</button>
+	</form>
+	<p class="mt-4 text-sm"><a href="/auth/forgot-password" class="link">{t('login_forgot')}</a></p>
+	{#if data.allowSignup}
+		<p class="muted mt-1 text-sm">{t('login_no_account')} <a href="/auth/signup" class="link">{t('nav_signup')}</a></p>
+	{/if}
+</div>

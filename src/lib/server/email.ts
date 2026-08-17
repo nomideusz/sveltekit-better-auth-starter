@@ -15,12 +15,14 @@ export const notify = createNotifier({ brand: BRAND, language: 'en', theme: { ac
 //   works there without a paid plan.
 // - else SMTP via nodemailer; with SMTP unset (local dev) messages are
 //   logged, not sent.
+// SMTP_FROM is the sender for both; unset → onboarding@resend.dev, which
+// Resend delivers to the account owner only (fine for a first test).
 const mailer = createMailer({
 	host: env.SMTP_HOST || undefined,
 	user: env.SMTP_USER || undefined,
 	pass: env.SMTP_PASSWORD || undefined,
 	port: Number(env.SMTP_PORT) || 465,
-	from: env.SMTP_FROM || 'noreply@example.com',
+	from: env.SMTP_FROM || 'onboarding@resend.dev',
 	fromName: BRAND,
 	onUnconfigured: (msg) => console.info('[email] not sent (SMTP unconfigured):', msg.to, msg.subject),
 });

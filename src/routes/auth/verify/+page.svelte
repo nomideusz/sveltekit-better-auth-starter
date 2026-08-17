@@ -5,4 +5,7 @@
 	const t = $derived(i18n.t);
 </script>
 
-<p>{data.success ? t('verify_ok') : t('verify_bad')}</p>
+<div class="card mx-auto max-w-sm">
+	<p class={data.success ? 'notice text-sm' : 'error text-sm'}>{data.success ? t('verify_ok') : t('verify_bad')}</p>
+	<p class="mt-4 text-sm"><a href="/app" class="link">{t('nav_app')}</a></p>
+</div>
