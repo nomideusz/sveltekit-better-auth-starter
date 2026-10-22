@@ -7,7 +7,7 @@ and one protected area. Everything else is yours to add.
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/sveltekit-better-auth-starter?utm_medium=integration&utm_source=button&utm_campaign=sveltekit-better-auth-starter)
 
-> Built on `@sveltejs/kit` **3.0.0-next** (pre-release) and Svelte 5.
+> Built on `@sveltejs/kit` **3** and Svelte 5.
 
 ## What's inside
 

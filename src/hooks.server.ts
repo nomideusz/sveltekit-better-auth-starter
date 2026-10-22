@@ -34,4 +34,11 @@ const sessionHandle: Handle = async ({ event, resolve }) => {
 	return response;
 };
 
-export const handle = sequence(localeHandle, sessionHandle);
+// Uptime probe, answered before the locale redirect and the session lookup.
+// Liveness only: the process is serving requests.
+const healthHandle: Handle = ({ event, resolve }) =>
+	event.url.pathname === '/health'
+		? Response.json({ ok: true }, { headers: { 'cache-control': 'no-store' } })
+		: resolve(event);
+
+export const handle = sequence(healthHandle, localeHandle, sessionHandle);
